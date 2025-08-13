@@ -5,8 +5,8 @@ import carsharing.entities.Customer;
 import carsharing.menuNavigator.MenuNavigator;
 import carsharing.services.CustomerService;
 import carsharing.services.CustomerServiceImpl;
+import carsharing.utils.MenuUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerListMenu extends Menu {
@@ -32,11 +32,10 @@ public class CustomerListMenu extends Menu {
             this.navigator.showLoginMenu();
         } else {
             System.out.println("Customer list:");
-            final List<String> options = new ArrayList<>() {{
-                for (int i = 0; i < customers.size(); i++) {
-                    add(String.format("%s. %s", i + 1, customers.get(i).name()));
-                }
-            }};
+
+            List<String> options = MenuUtils.createNumberedOptions(customers, Customer::name);
+            options.removeLast(); // remove back as we handle it differently
+
             super.setOptions(options);
         }
     }

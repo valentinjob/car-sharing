@@ -4,8 +4,8 @@ import carsharing.dao.CarDao;
 import carsharing.dao.CarDaoImpl;
 import carsharing.dbClient.DbClient;
 import carsharing.entities.Car;
+import carsharing.utils.MenuUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CarServiceImpl implements CarService {
@@ -38,17 +38,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<String> createCarListOptions(List<Car> cars) {
-        if (cars.isEmpty()) {
-            return new ArrayList<>();
-        } else {
-            final List<String> options = new ArrayList<>() {{
-                for (int i = 0; i < cars.size(); i++) {
-                    add(String.format("%s. %s", i + 1, cars.get(i).name()));
-                }
-            }};
-            options.add("0. Back");
-            return options;
-        }
+        return MenuUtils.createNumberedOptions(cars, Car::name);
     }
 
     @Override
